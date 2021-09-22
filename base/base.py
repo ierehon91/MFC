@@ -1,4 +1,5 @@
 import psycopg2
+from openpyxl import load_workbook
 import config
 
 
@@ -20,8 +21,22 @@ class Base:
         self.conn.close()
 
 
+class ExcelBase:
+    def __init__(self):
+        self.wb = load_workbook('base_model.xlsx')
+
+    def parse_status_specialist(self):
+        sheet_status_specialist = self.wb.get_sheet_by_name('status_specialists')
+        statuses_specialists = []
+        for i in range(2, 31):
+            statuses_specialists.append(sheet_status_specialist.cell(row=i, column=1).value)
+        return statuses_specialists
+
+
 if __name__ == '__main__':
-    bd = Base()
-    bd.create_tablets()
-    bd.commit_bd()
-    bd.close_bd()
+    # bd = Base()
+    # bd.create_tablets()
+    # bd.commit_bd()
+    # bd.close_bd()
+    excel_data = ExcelBase()
+    print(excel_data.parse_status_specialist())

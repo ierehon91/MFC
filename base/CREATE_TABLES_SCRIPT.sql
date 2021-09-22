@@ -1,3 +1,6 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
 CREATE TABLE IF NOT EXISTS specialist_statuses (
     status_id SERIAL,
     status_name TEXT NOT NULL,
@@ -44,8 +47,8 @@ CREATE TABLE IF NOT EXISTS program_services (
 CREATE TABLE IF NOT EXISTS services_program_services (
     fk_service INTEGER,
     fk_program_service INTEGER,
-    FOREIGN KEY fk_service REFERENCES services (service_id),
-    FOREIGN KEY fk_program_service REFERENCES program_services (program_service_id)
+    FOREIGN KEY (fk_service) REFERENCES services (service_id),
+    FOREIGN KEY (fk_program_service) REFERENCES program_services (program_service_id)
 );
 
 CREATE TABLE IF NOT EXISTS dop_services (
@@ -61,13 +64,13 @@ CREATE TABLE IF NOT EXISTS program_services_dop_services (
     FOREIGN KEY (fk_dop_service) REFERENCES dop_services (dop_service_id)
 );
 
-CREATE TABLE IN NOT EXISTS reception_table (
+CREATE TABLE IF NOT EXISTS reception_table (
     reception_id BIGSERIAL,
     date_reception DATE NOT NULL,
     fk_specialist INTEGER NOT NULL,
     fk_service INTEGER NOT NULL,
     count_reception INTEGER,
     PRIMARY KEY (reception_id),
-    FOREIGN KEY (fk_specialist) REFERENCES specialists (specialist_id)
+    FOREIGN KEY (fk_specialist) REFERENCES specialists (specialist_id),
     FOREIGN KEY (fk_service) REFERENCES services (service_id)
 );

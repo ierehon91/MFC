@@ -11,8 +11,22 @@ class Base:
 
     def create_tablets(self):
         with open('CREATE_TABLES_SCRIPT.sql', 'r') as file:
-            sql = file.read()
-        self.cursor.execute(sql)
+            sql_script = file.read()
+        self.cursor.execute(sql_script)
+
+    def insert_specialist_status_data_in_db(self, status_data):
+        for row in status_data:
+            sql_script = f"INSERT INTO specialist_statuses (status_name) VALUES ('{row}')"
+            self.cursor.execute(sql_script)
+            print(f'Значение {row} добавлено!')
+
+    def insert_specialists_data_in_db(self, specialist_data):
+        for row in specialists_data:
+            sql_script = f"INSERT INTO specialists (specialist_name, fk_status_specialist) VALUES (" \
+                         f"'{row['name']}'," \
+                         f"(SELECT status_id FROM specialist_statuses WHERE status_name = '{row['status']}'))"
+            self.cursor.execute(sql_script)
+            print(f"Сотрудник {row['name']} добавлен!")
 
     def commit_bd(self):
         self.conn.commit()
@@ -26,17 +40,35 @@ class ExcelBase:
         self.wb = load_workbook('base_model.xlsx')
 
     def parse_status_specialist(self):
-        sheet_status_specialist = self.wb.get_sheet_by_name('status_specialists')
+        sheet_status_specialist = self.wb['status_specialists']
         statuses_specialists = []
-        for i in range(2, 31):
+        rows = sheet_status_specialist.max_row
+        for i in range(2, rows + 1):
             statuses_specialists.append(sheet_status_specialist.cell(row=i, column=1).value)
         return statuses_specialists
 
+    def parse_specialists(self):
+        sheet_specialists = self.wb['specialists']
+        specialists = []
+        rows = sheet_specialists.max_row
+        for i in range(2, rows + 1):
+            name = sheet_specialists.cell(row=i, column=1).value
+            status = sheet_specialists.cell(row=i, column=2).value
+            specialists.append({'name': name, 'status': status})
+        return specialists
+
 
 if __name__ == '__main__':
-    # bd = Base()
-    # bd.create_tablets()
-    # bd.commit_bd()
-    # bd.close_bd()
+    bd = Base()
     excel_data = ExcelBase()
-    print(excel_data.parse_status_specialist())
+
+    # Заполнение таблицы статусы специалистов
+    # status_data = excel_data.parse_status_specialist()
+    # bd.insert_specialist_status_data_in_db(status_data)
+
+    # Заполнение таблицы списка специалистов
+    # specialists_data = excel_data.parse_specialists()
+    # bd.insert_specialists_data_in_db(specialists_data)
+
+    bd.commit_bd()
+    bd.close_bd()

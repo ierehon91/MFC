@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" href="{{url_for('static', filename='css/services.css')}}" rel="stylesheet">
+</head>
+<body>
+<form>
+    <table>
+        <tbody>
+        {% for row in program_services %}
+            <tr>
+                <td class="program_services">{{row[0]}}</td>
+                <td class="services">
+                    <select name="{{row[1]}}">
+                        <option>{{row1}}</option>
+                        {% for service in services %}
+                            <option>{{service[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

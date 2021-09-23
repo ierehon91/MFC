@@ -126,6 +126,9 @@ if __name__ == '__main__':
     bd = Base()
     excel_data = ExcelBase()
 
+    # Создание таблиц БД
+    # bd.create_tablets()
+
     # Заполнение таблицы статусы специалистов
     # status_data = excel_data.parse_status_specialist()
     # bd.insert_specialist_status_data_in_db(status_data)
@@ -147,8 +150,8 @@ if __name__ == '__main__':
     # bd.insert_services_data_in_db(services_data)
 
     # Заполнение таблицы списка программных услуг
-    program_services_data = excel_data.parse_program_services()
-    bd.insert_program_services_data_in_db(program_services_data)
+    # program_services_data = excel_data.parse_program_services()
+    # bd.insert_program_services_data_in_db(program_services_data)
 
     bd.commit_bd()
     bd.close_bd()

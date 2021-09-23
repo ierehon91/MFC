@@ -20,13 +20,19 @@ class Base:
             self.cursor.execute(sql_script)
             print(f'Значение {row} добавлено!')
 
-    def insert_specialists_data_in_db(self, specialist_data):
+    def insert_specialists_data_in_db(self, specialists_data):
         for row in specialists_data:
             sql_script = f"INSERT INTO specialists (specialist_name, fk_status_specialist) VALUES (" \
                          f"'{row['name']}'," \
                          f"(SELECT status_id FROM specialist_statuses WHERE status_name = '{row['status']}'))"
             self.cursor.execute(sql_script)
             print(f"Сотрудник {row['name']} добавлен!")
+
+    def insert_group_services_data_in_db(self, group_services_data):
+        for row in group_services_data:
+            sql_script = f"INSERT INTO group_services (group_name) VALUES ('{row}')"
+            self.cursor.execute(sql_script)
+            print(f'Группа услуг {row} добавлена')
 
     def commit_bd(self):
         self.conn.commit()
@@ -57,6 +63,14 @@ class ExcelBase:
             specialists.append({'name': name, 'status': status})
         return specialists
 
+    def parse_group_services(self):
+        sheet_group_services = self.wb['groups']
+        groups_services = []
+        rows = sheet_group_services.max_row
+        for i in range(2, rows + 1):
+            groups_services.append(sheet_group_services.cell(row=i, column=1).value)
+        return groups_services
+
 
 if __name__ == '__main__':
     bd = Base()
@@ -69,6 +83,9 @@ if __name__ == '__main__':
     # Заполнение таблицы списка специалистов
     # specialists_data = excel_data.parse_specialists()
     # bd.insert_specialists_data_in_db(specialists_data)
+
+    group_services_data = excel_data.parse_group_services()
+    bd.insert_group_services_data_in_db(group_services_data)
 
     bd.commit_bd()
     bd.close_bd()

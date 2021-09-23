@@ -47,6 +47,14 @@ class Base:
             self.cursor.execute(sql_script)
             print(f"Услуга {row['name']} добавлена!")
 
+    def insert_program_services_data_in_db(self, program_services_data):
+        for row in program_services_data:
+            sql_script = f"INSERT INTO program_services (program_service_name, fk_tag_service) VALUES (" \
+                         f"'{row['name']}', " \
+                         f"(SELECT tag_id FROM tags_services WHERE tag_name = '{row['tag']}'))"
+            self.cursor.execute(sql_script)
+            print(f"Программная услуга {row['name']} добавлена!")
+
 
     def commit_bd(self):
         self.conn.commit()
@@ -103,6 +111,16 @@ class ExcelBase:
             services.append({'name': name, 'group': group})
         return services
 
+    def parse_program_services(self):
+        sheet_program_services = self.wb['program_services']
+        program_services = []
+        rows = sheet_program_services.max_row
+        for i in range(2, rows + 1):
+            name = sheet_program_services.cell(row=i, column=1).value
+            tag = sheet_program_services.cell(row=i, column=2).value
+            program_services.append({'name': name, 'tag': tag})
+        return program_services
+
 
 if __name__ == '__main__':
     bd = Base()
@@ -127,6 +145,10 @@ if __name__ == '__main__':
     # Заполнение таблицы списка услуг
     # services_data = excel_data.parse_services()
     # bd.insert_services_data_in_db(services_data)
+
+    # Заполнение таблицы списка программных услуг
+    program_services_data = excel_data.parse_program_services()
+    bd.insert_program_services_data_in_db(program_services_data)
 
     bd.commit_bd()
     bd.close_bd()

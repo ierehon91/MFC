@@ -40,6 +40,13 @@ class Base:
             self.cursor.execute(sql_script)
             print(f'Тег {row} добавлен!')
 
+    def insert_services_data_in_db(self, services_data):
+        for row in services_data:
+            sql_script = f"INSERT INTO services (service_name, fk_group_service) VALUES ('{row['name']}', " \
+                         f"(SELECT group_id FROM group_services WHERE group_name = '{row['group']}'))"
+            self.cursor.execute(sql_script)
+            print(f"Услуга {row['name']} добавлена!")
+
 
     def commit_bd(self):
         self.conn.commit()
@@ -86,6 +93,16 @@ class ExcelBase:
             tags_services.append(sheet_group_tags_services.cell(row=i, column=1).value)
         return tags_services
 
+    def parse_services(self):
+        sheet_services = self.wb['services']
+        services = []
+        rows = sheet_services.max_row
+        for i in range(2, rows + 1):
+            name = sheet_services.cell(row=i, column=1).value
+            group = sheet_services.cell(row=i, column=2).value
+            services.append({'name': name, 'group': group})
+        return services
+
 
 if __name__ == '__main__':
     bd = Base()
@@ -104,8 +121,12 @@ if __name__ == '__main__':
     # bd.insert_group_services_data_in_db(group_services_data)
 
     # Заполнение таблицы списка тегов услуг
-    tags_services_data = excel_data.parse_tags_services()
-    bd.insert_tags_services_data_in_db(tags_services_data)
+    # tags_services_data = excel_data.parse_tags_services()
+    # bd.insert_tags_services_data_in_db(tags_services_data)
+
+    # Заполнение таблицы списка услуг
+    # services_data = excel_data.parse_services()
+    # bd.insert_services_data_in_db(services_data)
 
     bd.commit_bd()
     bd.close_bd()

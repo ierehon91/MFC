@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+</head>
+<body>
+    {% block header %}
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+    
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">База знаний МФЦ</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Электронная очередь</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Отчёты</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+    {% endblock %}
+    {% block content %}
+    <div class="container-xxl">
+        <h4>Меню</h4>
+        <ul>
+            <li><a href="/reports/services">Услуги</a></li>
+        </ul>
+    </div>
+    {% endblock %}
+    {% block footer%}
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Главная</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">База знаний МФЦ</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Электронная очередь</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Отчёты</a></li>
+        </ul>
+        <p class="text-center text-muted">2021 Филиал АУ "МФЦ" в г. Семилуки</p>
+      </footer>
+      {% endblock %}
+<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+</body>
+</html>

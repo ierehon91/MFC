@@ -25,6 +25,17 @@ def get_services_table():
     return cursor.fetchall()
 
 
+def get_all_services_table():
+    conn = psycopg2.connect(dbname=config.base_name, user=config.base_user,
+                            password=config.base_password, host=config.base_host)
+    cursor = conn.cursor()
+    sql_script = """SELECT group_services.group_name, service_name FROM services
+        LEFT JOIN group_services ON services.fk_group_service = group_services.group_id
+        ORDER BY group_services.group_name, service_name;"""
+    cursor.execute(sql_script)
+    return cursor.fetchall()
+
+
 def set_services_program_services(data):
     conn = psycopg2.connect(dbname=config.base_name, user=config.base_user,
                             password=config.base_password, host=config.base_host)
@@ -40,11 +51,22 @@ def set_services_program_services(data):
 app = Flask(__name__)
 
 
-@app.route('/services', methods=["GET", "POST"])
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/reports/services')
 def services():
+    return render_template('services.html', services=get_all_services_table())
+
+
+@app.route('/reports/services/program_services/change', methods=["GET", "POST"])
+def change_rel_program_services_services():
     if request.method == 'POST':
         set_services_program_services(request.form.to_dict())
-    return render_template('services.html', program_services=get_program_services_table(),
+    return render_template('change_rel_serv_prog_serv.html', program_services=get_program_services_table(),
                            services=get_services_table())
 
 

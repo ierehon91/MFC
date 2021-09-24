@@ -1,39 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link type="text/css" href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
-    <link type="text/css" href="{{url_for('static', filename='css/services.css')}}" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+{{ super() }}
+
 <div class="container-xxl">
-    <h1>Отнощение программных услуг к фактическим услугам.</h1>
-    <form action="/services" method="POST">
-        <table class="table table-bordered">
-            <thead>
-                <th class="program_services_column">Программная услуга</th>
-                <th class="services_column">Услуга</th>
-            </thead>
-            <tbody>
-            {% for row in program_services %}
-                <tr>
-                    <td class="program_services">{{row[0]}}</td>
-                    <td class="services">
-                        <input class="form-control" list="datalistOptions" name="{{row[2]}}" value="{%if row[1] != None %}{{row[1]}}{% endif %}">
-                        <datalist id="datalistOptions">
-                            {% for service in services %}
-                                <option value="{{service[0]}}">
-                            {% endfor %}
-                        </datalist>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <button class="btn btn-primary" type="submit">Сохранить</button>
-    </form>
+    <h1>Список услуг</h1>
+    <table class="table table-bordered">
+      <thead>
+        <th>Группа услуг</th>
+        <th>Название услуги</th>
+      </thead>
+      <tbody>
+    {% for service in services %}
+    <tr>
+      <td>{{service[0]}}</td>
+      <td>{{service[1]}}</td>
+    </tr>
+    {% endfor %}
+      </tbody>
+    </table>
 </div>
-<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
-</body>
-</html>
+
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

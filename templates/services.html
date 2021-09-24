@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link type="text/css" href="{{url_for('static', filename='css/services.css')}}" rel="stylesheet">
 </head>
 <body>
-<form>
-    <table>
-        <tbody>
-        {% for row in program_services %}
-            <tr>
-                <td class="program_services">{{row[0]}}</td>
-                <td class="services">
-                    <select name="{{row[1]}}">
-                        <option>{{row1}}</option>
-                        {% for service in services %}
-                            <option>{{service[0]}}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</form>
+<div class="container-xxl">
+    <h1>Отнощение программных услуг к фактическим услугам.</h1>
+    <form action="/services" method="POST">
+        <table class="table table-bordered">
+            <thead>
+                <th class="program_services_column">Программная услуга</th>
+                <th class="services_column">Услуга</th>
+            </thead>
+            <tbody>
+            {% for row in program_services %}
+                <tr>
+                    <td class="program_services">{{row[0]}}</td>
+                    <td class="services">
+                        <input class="form-control" list="datalistOptions" name="{{row[2]}}" value="{%if row[1] != None %}{{row[1]}}{% endif %}">
+                        <datalist id="datalistOptions">
+                            {% for service in services %}
+                                <option value="{{service[0]}}">
+                            {% endfor %}
+                        </datalist>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

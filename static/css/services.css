@@ -1,18 +1,11 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
+.table{
+    margin-top: 30px;
 }
 
-tr, td {
-    border: 1px solid black;
-}
-
-.program_services{
+.program_services_column {
     width: 50%;
-    padding: 10px;
 }
 
-.services{
+.services_column {
     width: 50%;
-    padding: 10px;
 }

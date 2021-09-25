@@ -5,6 +5,7 @@ import codecs
 from app.date_formats.date_formats import get_str_date_1
 import app.config as config
 
+
 class UpdateKapella:
     """Класс получения данных csv файла, сформированного из АИС Капелла"""
     def __init__(self, path, delimiter):
@@ -42,10 +43,11 @@ class UpdateKapella:
 
 
 def main():
-    day = 14
-    month = 7
+    day = 24
+    month = 9
     year = 2021
-    csv_path = r'..\..\temp\kapella_data.csv'
+    file_name = '24.09.2021'
+    csv_path = rf'..\..\temp\kapella\{file_name}.csv'
     kapella = UpdateKapella(csv_path, delimiter=config.kapella_delimiter)
     return kapella.get_report(year, month, day)
 

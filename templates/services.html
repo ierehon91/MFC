@@ -8,20 +8,24 @@
 
 <div class="container-xxl">
     <h1>Список услуг</h1>
-    <table class="table table-bordered">
-      <thead>
-        <th>Группа услуг</th>
-        <th>Название услуги</th>
-      </thead>
-      <tbody>
-    {% for service in services %}
-    <tr>
-      <td>{{service[0]}}</td>
-      <td>{{service[1]}}</td>
-    </tr>
-    {% endfor %}
-      </tbody>
-    </table>
+      <table class="table table-bordered">
+        <thead>
+          <th>Группа услуг</th>
+          <th>Название услуги</th>
+          <th></th>
+        </thead>
+        <tbody>
+      {% for service in services %}
+      <tr class="row_service_{{ service[2] }}">
+        <td>{{service[0]}}</td>
+        <td>{{service[1]}}</td>
+        <td>
+          <button class="btn btn-primary" onclick="window.location.href = 'services/{{service[2]}}';">Изменить</button>
+        </td>
+      </tr>
+      {% endfor %}
+        </tbody>
+      </table>
 </div>
 
 {% endblock %}

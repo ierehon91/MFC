@@ -7,9 +7,6 @@ from base.base import Base
 
 app = Flask(__name__)
 db_data = Base()
-program_services = db_data.get_program_services_table()
-services_data = db_data.get_services_table()
-all_services_data = db_data.get_all_services_table()
 
 
 @app.route('/')
@@ -20,11 +17,20 @@ def index():
 
 @app.route('/reports/services')
 def services():
+    all_services_data = db_data.get_all_services_table()
     return render_template('services.html', services=all_services_data)
+
+
+@app.route('/reports/services/<service_id>')
+def service_page(service_id):
+    service_info = db_data.get_service_info(service_id)
+    return render_template('service_page.html', service_info=service_info)
 
 
 @app.route('/reports/services/program_services/change', methods=["GET", "POST"])
 def change_rel_program_services_services():
+    program_services = db_data.get_program_services_table()
+    services_data = db_data.get_services_table()
     if request.method == 'POST':
         db_data.set_services_program_services(request.form.to_dict())
         db_data.commit_bd()

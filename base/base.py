@@ -55,6 +55,33 @@ class Base:
             self.cursor.execute(sql_script)
             print(f"Программная услуга {row['name']} добавлена!")
 
+    def get_program_services_table(self):
+        sql_script = """SELECT program_services.program_service_name, services.service_name, program_services.program_service_id, services.service_id FROM program_services
+                        LEFT JOIN services_program_services ON services_program_services.fk_program_service = program_services.program_service_id
+                        LEFT JOIN services ON services_program_services.fk_service = services.service_id
+                        ORDER BY services.service_name;"""
+        self.cursor.execute(sql_script)
+        program_services = self.cursor.fetchall()
+        return program_services
+
+    def get_services_table(self):
+        sql_script = """SELECT services.service_name FROM services;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
+    def get_all_services_table(self):
+        sql_script = """SELECT group_services.group_name, service_name FROM services
+            LEFT JOIN group_services ON services.fk_group_service = group_services.group_id
+            ORDER BY group_services.group_name, service_name;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
+    def set_services_program_services(self, data):
+        sql_script_delete = """DELETE FROM services_program_services;"""
+        self.cursor.execute(sql_script_delete)
+        for p_service_id, service_name in data.items():
+            sql_script = f"""INSERT INTO services_program_services (fk_program_service, fk_service) VALUES ({p_service_id}, (SELECT service_id FROM services WHERE service_name = '{service_name}'))"""
+            self.cursor.execute(sql_script)
 
     def commit_bd(self):
         self.conn.commit()

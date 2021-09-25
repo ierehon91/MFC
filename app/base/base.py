@@ -95,6 +95,13 @@ class Base:
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 
+    def get_specialists(self):
+        sql_script = """SELECT status_name, specialist_name, rating, specialist_id FROM specialists
+            LEFT JOIN specialist_statuses ON specialists.fk_status_specialist = specialist_statuses.status_id
+            ORDER BY status_id, specialist_name;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
     def commit_bd(self):
         self.conn.commit()
 

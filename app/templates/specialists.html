@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+{{ super() }}
+
+<div class="container-xxl">
+    <h1>Список специалистов</h1>
+      <table class="table table-bordered">
+        <thead>
+          <th>Статус специалиста</th>
+          <th>ФИО</th>
+          <th>Уровень универсализации</th>
+          <th></th>
+        </thead>
+        <tbody>
+      {% for specialist in specialists %}
+      <tr class="row_service_{{ specialist[2] }}">
+        <td>{{specialist[0]}}</td>
+        <td>{{specialist[1]}}</td>
+        <td>{{specialist[2]}}</td>
+        <td>
+          <button class="btn btn-primary" onclick="window.location.href = 'specialists/{{specialist[3]}}';">Изменить</button>
+        </td>
+      </tr>
+      {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

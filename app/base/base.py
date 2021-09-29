@@ -63,6 +63,14 @@ class Base:
             self.cursor.execute(sql_script)
             print(f"Программная услуга {row['name']} добавлена!")
 
+    def insert_program_service_in_db(self, program_service):
+        sql_script = f"""INSERT INTO program_services (program_service_name, fk_tag_service) VALUES (
+        '{program_service['name-program-service']}',
+        {program_service['tag-select']}
+        )"""
+        self.cursor.execute(sql_script)
+        print(f"Программная услуга {program_service['name-program-service']} добавлена!")
+
     def insert_reception_table_in_db(self, reception_data):
         sql_script = f"""INSERT INTO reception_table (date_reception, fk_specialist, fk_service, count_reception)
             VALUES (
@@ -114,6 +122,11 @@ class Base:
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 
+    def get_tags_services(self):
+        sql_script = f"""SELECT * FROM tags_services"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
     def get_specialists(self):
         sql_script = """SELECT status_name, specialist_name, rating, specialist_id FROM specialists
             LEFT JOIN specialist_statuses ON specialists.fk_status_specialist = specialist_statuses.status_id
@@ -123,6 +136,22 @@ class Base:
 
     def get_group_services(self):
         sql_script = """SELECT * FROM group_services;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
+    def get_report_services(self, first_date, last_date):
+        sql_script = f"""
+        SELECT group_services.group_name, service_name, count(count_reception) FROM reception_table
+        LEFT JOIN specialists ON reception_table.fk_specialist = specialist_id
+        LEFT JOIN program_services ON reception_table.fk_service = program_service_id
+        LEFT JOIN services_program_services ON program_service_id = services_program_services.fk_program_service
+        LEFT JOIN services ON services_program_services.fk_service = service_id
+        LEFT JOIN group_services ON services.fk_group_service = group_id
+        WHERE date_reception >= '{first_date}'
+        AND date_reception <= '{last_date}'
+        GROUP BY service_name, group_services.group_name
+        ORDER BY group_services.group_name;
+        """
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 

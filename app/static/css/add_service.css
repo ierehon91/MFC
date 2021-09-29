@@ -3,6 +3,10 @@
     height: 600px;
 }
 
+.tag-select {
+    margin-bottom: 30px;
+}
+
 .name-service {
     margin-top: 30px;
     margin-bottom: 30px;

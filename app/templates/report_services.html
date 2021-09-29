@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+{{ super() }}
+<div class="container-xxl">
+    <h1>Отчёт по услугам</h1>
+    <form action="/reports/report_services" method="POST">
+        <span>Дата: </span>
+        <input type="date" name="first_date" value="{{dates['first_date']}}">
+        <span> по </span>
+        <input type="date" name="last_date" value="{{dates['last_date']}}">
+        <button class="btn btn-primary btn-sm" type="submit">Показать отчёт</button>
+    </form>
+    <table class="table table-bordered">
+        <tbody>
+            {% for row in report_services%}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

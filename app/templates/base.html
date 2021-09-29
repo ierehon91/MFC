@@ -26,10 +26,18 @@
     {% endblock %}
     {% block content %}
     <div class="container-xxl">
-        <h4>Меню</h4>
+      <h4>Меню</h4>
+
+        <p>Отчёты</p>
+        <ul> 
+          <li><a href="/reports/report_services">Отчёт по услугам</a></li>
+        </ul>
+
+        <p>Настройки</p>
         <ul>
             <li><a href="/reports/services">Услуги</a></li>
             <li><a href="/reports/services/add_service">Добавить услугу</a></li>
+            <li><a href="/reports/services/add_program_service">Добавить программную услугу</a></li>
             <li><a href="/reports/services/program_services/change">Изменение отношений програмных услуг к фактическим услугам</a></li>
             <li><a href="/reports/specialists">Специалисты</a></li>
         </ul>

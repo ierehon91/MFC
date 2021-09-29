@@ -25,19 +25,23 @@ def insert_data(data):
 def parse_reception(wb):
     sheet_reception = wb['Приём']
     reception = []
-    for i in range(1, sheet_reception.max_row + 1):
-        date_reception = sheet_reception.cell(row=i, column=1).value
-        specialist_name = sheet_reception.cell(row=i, column=2).value
-        service_name = sheet_reception.cell(row=i, column=3).value
-        count_reception = sheet_reception.cell(row=i, column=4).value
-        date_reception = date_reception.split('.')
-        date_reception = datetime.date(int(date_reception[2]), int(date_reception[1]), int(date_reception[0])).isoformat()
-        reception.append({'date_reception': date_reception,
-                          'specialist_name': specialist_name,
-                          'service_name': service_name,
-                          'count_reception': count_reception
-                          })
-    return reception
+    print(sheet_reception.max_row)
+    if sheet_reception.max_row > 1:
+        for i in range(1, sheet_reception.max_row + 1):
+            date_reception = sheet_reception.cell(row=i, column=1).value
+            specialist_name = sheet_reception.cell(row=i, column=2).value
+            service_name = sheet_reception.cell(row=i, column=3).value
+            count_reception = sheet_reception.cell(row=i, column=4).value
+            date_reception = date_reception.split('.')
+            date_reception = datetime.date(int(date_reception[2]), int(date_reception[1]), int(date_reception[0])).isoformat()
+            reception.append({'date_reception': date_reception,
+                              'specialist_name': specialist_name,
+                              'service_name': service_name,
+                              'count_reception': count_reception
+                              })
+        return reception
+    else:
+        return []
 
 
 def parse_gibrit(wb):

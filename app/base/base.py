@@ -47,6 +47,14 @@ class Base:
             self.cursor.execute(sql_script)
             print(f"Услуга {row['name']} добавлена!")
 
+    def insert_service_in_db(self, service):
+        sql_script = f"""INSERT INTO services (service_name, fk_group_service) VALUES (
+        '{service['service_name']}',
+        {service['group-select']}
+        )"""
+        self.cursor.execute(sql_script)
+        print(f"Услуга {service['service_name']} добавлена!")
+
     def insert_program_services_data_in_db(self, program_services_data):
         for row in program_services_data:
             sql_script = f"INSERT INTO program_services (program_service_name, fk_tag_service) VALUES (" \
@@ -110,6 +118,11 @@ class Base:
         sql_script = """SELECT status_name, specialist_name, rating, specialist_id FROM specialists
             LEFT JOIN specialist_statuses ON specialists.fk_status_specialist = specialist_statuses.status_id
             ORDER BY status_id, specialist_name;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
+    def get_group_services(self):
+        sql_script = """SELECT * FROM group_services;"""
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 

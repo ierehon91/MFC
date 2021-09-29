@@ -18,11 +18,13 @@ def services():
     all_services_data = db_data.get_all_services_table()
     return render_template('services.html', services=all_services_data)
 
-@app.route('/reports/services/add_service', methods = ['GET', 'POST'])
+
+@app.route('/reports/services/add_service', methods=['GET', 'POST'])
 def add_service():
     if request.method == 'POST':
-        pass
-    return render_template('add_service.html')
+        db_data.insert_service_in_db(request.form.to_dict())
+    groups = db_data.get_group_services()
+    return render_template('add_service.html', groups=groups)
 
 
 @app.route('/reports/services/<service_id>')

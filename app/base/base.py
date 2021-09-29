@@ -55,6 +55,17 @@ class Base:
             self.cursor.execute(sql_script)
             print(f"Программная услуга {row['name']} добавлена!")
 
+    def insert_reception_table_in_db(self, reception_data):
+        sql_script = f"""INSERT INTO reception_table (date_reception, fk_specialist, fk_service, count_reception)
+            VALUES (
+            '{reception_data['date_reception']}',
+            (SELECT specialist_id FROM specialists WHERE specialist_name = '{reception_data['specialist_name']}'),
+            (SELECT program_service_id FROM program_services WHERE program_service_name = '{reception_data['service_name']}'),
+            {reception_data['count_reception']}
+            );"""
+        self.cursor.execute(sql_script)
+        print("Запсиь о приёме добавлена!")
+
     def get_program_services_table(self):
         sql_script = """SELECT program_services.program_service_name, services.service_name, 
             program_services.program_service_id, services.service_id 

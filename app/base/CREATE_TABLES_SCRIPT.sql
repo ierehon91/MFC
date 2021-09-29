@@ -72,5 +72,5 @@ CREATE TABLE IF NOT EXISTS reception_table (
     count_reception INTEGER,
     PRIMARY KEY (reception_id),
     FOREIGN KEY (fk_specialist) REFERENCES specialists (specialist_id),
-    FOREIGN KEY (fk_service) REFERENCES services (service_id)
+    FOREIGN KEY (fk_service) REFERENCES program_services (program_service_id)
 );

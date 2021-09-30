@@ -141,7 +141,7 @@ class Base:
 
     def get_report_services(self, first_date, last_date):
         sql_script = f"""
-        SELECT group_services.group_name, service_name, count(count_reception) FROM reception_table
+        SELECT group_services.group_name, service_name, sum(count_reception) FROM reception_table
         LEFT JOIN specialists ON reception_table.fk_specialist = specialist_id
         LEFT JOIN program_services ON reception_table.fk_service = program_service_id
         LEFT JOIN services_program_services ON program_service_id = services_program_services.fk_program_service

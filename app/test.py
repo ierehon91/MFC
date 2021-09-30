@@ -13,6 +13,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/reports/report_specialists')
+def report_specialists():
+    return render_template('report_specialists.html')
+
+
 @app.route('/reports/report_services', methods=['GET', 'POST'])
 def report_services():
     if request.method == 'POST':

@@ -10,16 +10,26 @@ db_data = Base()
 @app.route('/')
 @app.route('/index')
 def index():
+    """Главная"""
     return render_template('index.html')
 
 
-@app.route('/reports/report_specialists')
+# Отчёты
+@app.route('/reports')
+def reports():
+    """Главная отчёты"""
+    render_template('reports.html')
+
+
+@app.route('/reports/report-specialists')
 def report_specialists():
+    """Отчёты по специалистам"""
     return render_template('report_specialists.html')
 
 
-@app.route('/reports/report_services', methods=['GET', 'POST'])
+@app.route('/reports/report-services', methods=['GET', 'POST'])
 def report_services():
+    """Отчёты по услугам"""
     if request.method == 'POST':
         dates = request.form.to_dict()
         report_services = db_data.get_report_services(dates['first_date'], dates['last_date'])
@@ -30,19 +40,54 @@ def report_services():
         return render_template('report_services.html', report_services=report_services, dates=dates)
 
 
-@app.route('/reports/services')
+# Блок /reports/settings
+
+@app.route('/reports/settings')
+def reports():
+    """Панель администратора отчётов"""
+    render_template('reports_settings.html')
+
+
+@app.route('/reports/settings/services')
 def services():
+    """Список фактических услуг"""
     all_services_data = db_data.get_all_services_table()
     return render_template('services.html', services=all_services_data)
 
 
-@app.route('/reports/services/add_service', methods=['GET', 'POST'])
+@app.route('/reports/settings/services/add', methods=['GET', 'POST'])
 def add_service():
+    """Добавление фактической услуги"""
     if request.method == 'POST':
         db_data.insert_service_in_db(request.form.to_dict())
         db_data.commit_bd()
     groups = db_data.get_group_services()
     return render_template('add_service.html', groups=groups)
+
+
+@app.route('/reports/settings/services/<service_id>')
+def service_page(service_id):
+    """Страница фактической услуги"""
+    service_info = db_data.get_service_info(service_id)
+    return render_template('service_page.html', service_info=service_info)
+
+
+@app.route('/reports/settings/services/groups-services')
+def groups_services():
+    """Группы услуг"""
+    return render_template('groups_services.html')
+
+
+@app.route('/reports/settings/services/groups-services/add')
+def add_group_services():
+    """Добавление группы услуг"""
+    return render_template('add_group_services.html')
+
+
+@app.route('/reports/settings/services/groups-services/<group_services_id>')
+def group_services_page(group_services_id):
+    """Страница группы услуг"""
+    return render_template('group_services_page.html')
 
 
 @app.route('/reports/services/add_program_service', methods=['GET', 'POST'])
@@ -54,10 +99,7 @@ def add_program_service():
     return render_template('add_program_service.html', tags=tags)
 
 
-@app.route('/reports/services/<service_id>')
-def service_page(service_id):
-    service_info = db_data.get_service_info(service_id)
-    return render_template('service_page.html', service_info=service_info)
+
 
 
 @app.route('/reports/services/program_services/change', methods=["GET", "POST"])

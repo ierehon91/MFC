@@ -77,7 +77,7 @@
 <part>group_id</part>
 </key>
 </table>
-<table x="1114" y="371" name="tags_services">
+<table x="1313" y="402" name="tags_services">
 <row name="tag_id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -97,8 +97,7 @@
 <default>NULL</default></row>
 <row name="fk_tag_service" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tags_services" row="tag_id" />
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>program_service_id</part>
 </key>
@@ -130,29 +129,6 @@
 <key type="PRIMARY" name="">
 </key>
 </table>
-<table x="823" y="647" name="dop_services">
-<row name="dop_service_id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="dop_service_name" null="1" autoincrement="0">
-<datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>dop_service_id</part>
-</key>
-</table>
-<table x="820" y="531" name="program_services_dop_services">
-<row name="fk_program_service" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="program_services" row="program_service_id" />
-</row>
-<row name="fk_dop_service" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="dop_services" row="dop_service_id" />
-</row>
-<key type="PRIMARY" name="">
-</key>
-</table>
 <table x="568" y="133" name="reception_table">
 <row name="reception_id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
@@ -173,6 +149,18 @@
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>reception_id</part>
+</key>
+</table>
+<table x="1040" y="408" name="program_services_tags">
+<row name="fk_program_service" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="program_services" row="program_service_id" />
+</row>
+<row name="fk_tag_service" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="tags_services" row="tag_id" />
+</row>
+<key type="PRIMARY" name="">
 </key>
 </table>
 </sql>

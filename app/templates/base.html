@@ -13,12 +13,12 @@
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
               <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
             </a>
-    
+            
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
               <li><a href="#" class="nav-link px-2 text-white">База знаний МФЦ</a></li>
               <li><a href="#" class="nav-link px-2 text-white">Электронная очередь</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">Отчёты</a></li>
+              <li><a href="/reports" class="nav-link px-2 text-white">Отчёты</a></li>
             </ul>
           </div>
         </div>
@@ -26,22 +26,7 @@
     {% endblock %}
     {% block content %}
     <div class="container-xxl">
-      <h4>Меню</h4>
-
-        <p>Отчёты</p>
-        <ul> 
-          <li><a href="/reports/report_specialists">Отчёт по специалистам</a></li>
-          <li><a href="/reports/report_services">Отчёт по услугам</a></li>         
-        </ul>
-
-        <p>Настройки</p>
-        <ul>
-            <li><a href="/reports/services">Услуги</a></li>
-            <li><a href="/reports/services/add_service">Добавить услугу</a></li>
-            <li><a href="/reports/services/add_program_service">Добавить программную услугу</a></li>
-            <li><a href="/reports/services/program_services/change">Изменение отношений програмных услуг к фактическим услугам</a></li>
-            <li><a href="/reports/specialists">Специалисты</a></li>
-        </ul>
+      
     </div>
     {% endblock %}
     {% block footer %}

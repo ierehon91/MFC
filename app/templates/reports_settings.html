@@ -1,1 +1,21 @@
-Панель администратора отчётов
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+    <h3>Содержимое блока контент</h3>
+{% endblock %}
+{% block content %}
+{{ super() }}
+<div class="container-xxl">
+    <h1>Панель администратора отчётов</h1>
+    <ul>
+        <li><a href="/reports/settings/services">Список услуг</a></li>
+        <li><a href="/reports/settings/program-services">Список программных услуг</a></li>
+    </ul>
+</div>
+
+{% endblock -%}
+{% block footer%}
+{{ super() }}
+    
+{% endblock %}

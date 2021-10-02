@@ -18,7 +18,7 @@ def index():
 @app.route('/reports')
 def reports():
     """Главная отчёты"""
-    render_template('reports.html')
+    return render_template('reports.html')
 
 
 @app.route('/reports/report-specialists')
@@ -44,9 +44,9 @@ def report_services():
 # Блок /reports/settings
 
 @app.route('/reports/settings')
-def reports():
+def reports_settings():
     """Панель администратора отчётов"""
-    render_template('reports_settings.html')
+    return render_template('reports_settings.html')
 
 
 @app.route('/reports/settings/services')
@@ -124,7 +124,7 @@ def change_rel_program_services_services():
                            services=services_data)
 
 
-@app.route('reports/settings/program-services/tags-services')
+@app.route('/reports/settings/program-services/tags-services')
 def tags_services():
     return render_template('reports_settings_tags_services.html')
 
@@ -134,7 +134,7 @@ def add_tag_services():
     return render_template('reports_settings_tags_services_add.html')
 
 
-@app.route('reports/settings/program-services/tags-services/<tag_service_id>')
+@app.route('/reports/settings/program-services/tags-services/<tag_service_id>')
 def tag_service_page(tag_service_id):
     return render_template('reports_settings_tags_services_page.html')
 
@@ -146,4 +146,4 @@ def specialists():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

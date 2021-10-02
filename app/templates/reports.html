@@ -1,1 +1,22 @@
-Главная отчёты
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+    <h3>Содержимое блока контент</h3>
+{% endblock %}
+{% block content %}
+{{ super() }}
+<div class="container-xxl">
+    <h1>Главная Отчёты</h1>
+    <ul>
+        <li><a href="/reports/report-specialists">Отчёт по специалистам</a></li>
+        <li><a href="/reports/report-services">Отчёт по услугам</a></li>
+    </ul>
+    <a href="/reports/settings">Панель администратора</a>
+</div>
+
+{% endblock -%}
+{% block footer%}
+{{ super() }}
+    
+{% endblock %}

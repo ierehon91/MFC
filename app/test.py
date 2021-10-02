@@ -27,6 +27,7 @@ def report_specialists():
     return render_template('report_specialists.html')
 
 
+
 @app.route('/reports/report-services', methods=['GET', 'POST'])
 def report_services():
     """Отчёты по услугам"""
@@ -52,7 +53,7 @@ def reports():
 def services():
     """Список фактических услуг"""
     all_services_data = db_data.get_all_services_table()
-    return render_template('services.html', services=all_services_data)
+    return render_template('reports_settings_services.html', services=all_services_data)
 
 
 @app.route('/reports/settings/services/add', methods=['GET', 'POST'])
@@ -62,61 +63,86 @@ def add_service():
         db_data.insert_service_in_db(request.form.to_dict())
         db_data.commit_bd()
     groups = db_data.get_group_services()
-    return render_template('add_service.html', groups=groups)
+    return render_template('reports_settings_services_add.html', groups=groups)
 
 
 @app.route('/reports/settings/services/<service_id>')
 def service_page(service_id):
     """Страница фактической услуги"""
     service_info = db_data.get_service_info(service_id)
-    return render_template('service_page.html', service_info=service_info)
+    return render_template('reports_settings_services_page.html', service_info=service_info)
 
 
 @app.route('/reports/settings/services/groups-services')
 def groups_services():
     """Группы услуг"""
-    return render_template('groups_services.html')
+    return render_template('reports_settings_services_group_services.html')
 
 
 @app.route('/reports/settings/services/groups-services/add')
 def add_group_services():
     """Добавление группы услуг"""
-    return render_template('add_group_services.html')
+    return render_template('reports_settings_services_group_services_add.html')
 
 
 @app.route('/reports/settings/services/groups-services/<group_services_id>')
 def group_services_page(group_services_id):
     """Страница группы услуг"""
-    return render_template('group_services_page.html')
+    return render_template('reports_settings_services_group_services_page.html')
 
 
-@app.route('/reports/services/add_program_service', methods=['GET', 'POST'])
+@app.route('/reports/settings/program-services')
+def program_services():
+    """Программные услуги"""
+    return render_template('reports_settings_program_services.html')
+
+
+@app.route('/reports/settings/program-services/add', methods=['GET', 'POST'])
 def add_program_service():
     if request.method == 'POST':
         db_data.insert_program_service_in_db(request.form.to_dict())
         db_data.commit_bd()
     tags = db_data.get_tags_services()
-    return render_template('add_program_service.html', tags=tags)
+    return render_template('reports_settings_program_services_add.html', tags=tags)
 
 
+@app.route('/reports/settings/program-services/<program_service_id>')
+def program_service_page(program_service_id):
+    """Страница программной услуги"""
+    return render_template('reports_settings_program_services_page.html')
 
 
-
-@app.route('/reports/services/program_services/change', methods=["GET", "POST"])
+@app.route('/reports/settings/program-services/rel', methods=["GET", "POST"])
 def change_rel_program_services_services():
+    """Таблица с отношением программных услуг к фактическим"""
     if request.method == 'POST':
         db_data.set_services_program_services(request.form.to_dict())
         db_data.commit_bd()
     program_services = db_data.get_program_services_table()
     services_data = db_data.get_services_table()
-    return render_template('change_rel_serv_prog_serv.html', program_services=program_services,
+    return render_template('reports_settings_program_services_rel.html', program_services=program_services,
                            services=services_data)
+
+
+@app.route('reports/settings/program-services/tags-services')
+def tags_services():
+    return render_template('reports_settings_tags_services.html')
+
+
+@app.route('/reports/settings/program-services/tags-services/add')
+def add_tag_services():
+    return render_template('reports_settings_tags_services_add.html')
+
+
+@app.route('reports/settings/program-services/tags-services/<tag_service_id>')
+def tag_service_page(tag_service_id):
+    return render_template('reports_settings_tags_services_page.html')
 
 
 @app.route('/reports/specialists')
 def specialists():
     specialists = db_data.get_specialists()
-    return render_template('specialists.html', specialists=specialists)
+    return render_template('reports_settings_specialists.html', specialists=specialists)
 
 
 if __name__ == '__main__':

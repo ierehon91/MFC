@@ -1,1 +1,17 @@
-Страница тега услуги
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl">
+    {{tag}}
+</div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

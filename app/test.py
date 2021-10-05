@@ -99,6 +99,7 @@ def program_services():
 
 @app.route('/reports/settings/program-services/add', methods=['GET', 'POST'])
 def add_program_service():
+    """Добавление программной услуги"""
     if request.method == 'POST':
         db_data.insert_program_service_in_db(request.form.to_dict())
         db_data.commit_bd()
@@ -126,17 +127,23 @@ def change_rel_program_services_services():
 
 @app.route('/reports/settings/program-services/tags-services')
 def tags_services():
-    return render_template('reports_settings_tags_services.html')
+    """Спиок тегов услуг"""
+    tags = db_data.get_tags_services()
+    return render_template('reports_settings_tags_services.html', tags=tags)
 
 
-@app.route('/reports/settings/program-services/tags-services/add')
+@app.route('/reports/settings/program-services/tags-services/add', methods=['GET', 'POST'])
 def add_tag_services():
+    if request.method == 'POST':
+        db_data.add_tag_service_in_db(request.form.to_dict())
+        db_data.commit_bd()
     return render_template('reports_settings_tags_services_add.html')
 
 
 @app.route('/reports/settings/program-services/tags-services/<tag_service_id>')
 def tag_service_page(tag_service_id):
-    return render_template('reports_settings_tags_services_page.html')
+    tag = db_data.get_tag_service(tag_service_id)
+    return render_template('reports_settings_tags_services_page.html', tag=tag)
 
 
 @app.route('/reports/specialists')

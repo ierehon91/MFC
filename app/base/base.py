@@ -82,6 +82,11 @@ class Base:
         self.cursor.execute(sql_script)
         print("Запсиь о приёме добавлена!")
 
+    def add_tag_service_in_db(self, tag: dict):
+        sql_script = f"""INSERT INTO tags_services (tag_name) VALUES ('{tag['tag_name']}');"""
+        self.cursor.execute(sql_script)
+        print(f"Тег {tag['tag_name']} добавлен")
+
     def get_program_services_table(self):
         sql_script = """SELECT program_services.program_service_name, services.service_name, 
             program_services.program_service_id, services.service_id 
@@ -124,6 +129,11 @@ class Base:
 
     def get_tags_services(self):
         sql_script = f"""SELECT * FROM tags_services"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
+    def get_tag_service(self, tag_id):
+        sql_script = f"""SELECT * FROM tags_services WHERE tag_id = {tag_id}"""
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 

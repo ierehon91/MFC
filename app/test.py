@@ -93,7 +93,8 @@ def group_services_page(group_services_id):
 @app.route('/reports/settings/program-services')
 def program_services():
     """Программные услуги"""
-    return render_template('reports_settings_program_services.html')
+    program_services = db_data.get_program_services_table()
+    return render_template('reports_settings_program_services.html', program_services=program_services)
 
 
 @app.route('/reports/settings/program-services/add', methods=['GET', 'POST'])
@@ -106,10 +107,18 @@ def add_program_service():
     return render_template('reports_settings_program_services_add.html', tags=tags)
 
 
-@app.route('/reports/settings/program-services/<program_service_id>')
+@app.route('/reports/settings/program-services/<program_service_id>', methods=['GET', 'POST'])
 def program_service_page(program_service_id):
     """Страница программной услуги"""
-    return render_template('reports_settings_program_services_page.html')
+    service = db_data.get_program_service_info(program_service_id)
+    tags_service = db_data.get_tags_from_one_program_service(program_service_id)
+    select_tags = db_data.get_tags_services()
+    if request.method == 'POST':
+        db_data.insert_tag_program_service_rel(request.form.to_dict())
+        db_data.commit_bd()
+        return redirect(f'/reports/settings/program-services/{service[0][0]}')
+    return render_template('reports_settings_program_services_page.html', service=service, tags_service=tags_service,
+                           select_tags=select_tags)
 
 
 @app.route('/reports/settings/program-services/rel', methods=["GET", "POST"])

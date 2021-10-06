@@ -35,6 +35,14 @@ class Base:
         self.cursor.execute(sql_script)
         print("Запсиь о приёме добавлена!")
 
+    def insert_tag_program_service_rel(self, insert_data):
+        sql_script = f"""INSERT INTO program_services_tags VALUES (
+        {insert_data['service_id']},
+        (SELECT tag_id FROM tags_services WHERE tag_name = '{insert_data['add_tag_name']}')
+        );"""
+        self.cursor.execute(sql_script)
+        print(f"Тег к услуге прикреплён добавлен")
+
     def add_tag_service_in_db(self, tag: dict):
         sql_script = f"""INSERT INTO tags_services (tag_name) VALUES ('{tag['tag_name']}');"""
         self.cursor.execute(sql_script)
@@ -80,8 +88,22 @@ class Base:
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 
+    def get_program_service_info(self, program_service_id):
+        sql_script = f"""SELECT * FROM program_services WHERE program_service_id = {program_service_id}"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
+    def get_tags_from_one_program_service(self, program_service_id):
+        sql_script = f"""SELECT tag_id, tag_name FROM program_services
+        LEFT JOIN program_services_tags ON program_services.program_service_id = program_services_tags.fk_program_service
+        LEFT JOIN tags_services ON program_services_tags.fk_tag = tags_services.tag_id
+        WHERE program_services.program_service_id = {program_service_id}
+        ORDER BY tag_id;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
     def get_tags_services(self):
-        sql_script = f"""SELECT * FROM tags_services"""
+        sql_script = f"""SELECT * FROM tags_services ORDER BY tag_id"""
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 

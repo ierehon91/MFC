@@ -1,1 +1,23 @@
-Программные услуги
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl">
+    <h1>Программные услуги</h1>
+    {% for program_service in program_services %}
+        <p>
+            {{program_service[0]}}<br>
+            <a href="/reports/settings/program-services/{{program_service[2]}}">Перейти</a>
+        </p>
+        <hr>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

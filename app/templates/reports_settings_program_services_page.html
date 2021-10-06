@@ -1,1 +1,33 @@
-Страница программной услуги
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl">
+    <h1>{{service}}</h1>
+
+    <h3>Теги:</h3>
+    {% for tag in tags_service %}
+        {{tag[1]}}<br>
+    {% endfor %}
+    <hr>
+    Добавить тег:
+    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST">
+        <input type="hidden" name="service_id" value="{{service[0][0]}}">
+        <input class="form-control" list="datalistOptions" name="add_tag_name" placeholder="Выберите тег">
+                        <datalist id="datalistOptions">
+                            {% for select_tag in select_tags %}
+                                <option value="{{select_tag[1]}}">
+                            {% endfor %}
+                        </datalist>
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </form>
+</div>
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

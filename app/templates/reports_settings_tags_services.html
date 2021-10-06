@@ -12,6 +12,9 @@
     {% for tag in tags %}
     <div style="margin-top: 30px;">
         <h5>{{tag[1]}}</h5>
+        {% if tag[2] != None %}
+            <p>{{tag[2]}}</p>
+        {% endif %}
         <a href="/reports/settings/program-services/tags-services/{{tag[0]}}">Изменить</a>
     </div>
     {% endfor %}

@@ -165,6 +165,13 @@ class Base:
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 
+    def change_tag_in_bd(self, tag):
+        sql_script = f"""UPDATE tags_services 
+        SET tag_name = '{tag['tag_name']}', tag_description = '{tag['tag_description']}'
+        WHERE tag_id = {tag['tag_id']}"""
+        self.cursor.execute(sql_script)
+        print(f"Тег {tag['tag_name']} был изменён!")
+
     def commit_bd(self):
         self.conn.commit()
 

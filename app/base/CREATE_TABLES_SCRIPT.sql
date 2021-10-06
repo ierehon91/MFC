@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS group_services (
 CREATE TABLE IF NOT EXISTS tags_services (
     tag_id SERIAL,
     tag_name TEXT NOT NULL,
+    tag_description TEXT,
     PRIMARY KEY (tag_id)
 );
 
@@ -40,8 +41,16 @@ CREATE TABLE IF NOT EXISTS program_services (
     program_service_id SERIAL,
     program_service_name TEXT NOT NULL,
     fk_tag_service INTEGER,
+    program_service_description TEXT,
     PRIMARY KEY (program_service_id),
     FOREIGN KEY (fk_tag_service) REFERENCES tags_services (tag_id)
+);
+
+CREATE TABLE IF NOT EXISTS program_services_tags (
+    fk_program_service INTEGER,
+    fk_tag INTEGER,
+    FOREIGN KEY (fk_program_service) REFERENCES program_services (program_service_id),
+    FOREIGN KEY (fk_tag) REFERENCES tags_services (tag_id)
 );
 
 CREATE TABLE IF NOT EXISTS services_program_services (
@@ -49,19 +58,6 @@ CREATE TABLE IF NOT EXISTS services_program_services (
     fk_program_service INTEGER,
     FOREIGN KEY (fk_service) REFERENCES services (service_id),
     FOREIGN KEY (fk_program_service) REFERENCES program_services (program_service_id)
-);
-
-CREATE TABLE IF NOT EXISTS dop_services (
-    dop_service_id SERIAL,
-    dop_service_name TEXT NOT NULL,
-    PRIMARY KEY (dop_service_id)
-);
-
-CREATE TABLE IF NOT EXISTS program_services_dop_services (
-    fk_program_service INTEGER,
-    fk_dop_service INTEGER,
-    FOREIGN KEY (fk_program_service) REFERENCES program_services (program_service_id),
-    FOREIGN KEY (fk_dop_service) REFERENCES dop_services (dop_service_id)
 );
 
 CREATE TABLE IF NOT EXISTS reception_table (

@@ -84,6 +84,9 @@
 <row name="tag_name" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
+<row name="tag_description" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>tag_id</part>
 </key>
@@ -97,6 +100,12 @@
 <default>NULL</default></row>
 <row name="fk_tag_service" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="pr" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="program_service_description" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>program_service_id</part>
@@ -151,7 +160,7 @@
 <part>reception_id</part>
 </key>
 </table>
-<table x="1040" y="408" name="program_services_tags">
+<table x="1041" y="408" name="program_services_tags">
 <row name="fk_program_service" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="program_services" row="program_service_id" />

@@ -9,6 +9,14 @@
 
 <div class="container-xxl">
     {{tag}}
+    {{tag[1]}}
+    {{tag[2]}}
+    <form action="/reports/settings/program-services/tags-services/{{tag_service_id}}" method="POST">
+        <input type="hidden" name="tag_id" value="{{tag[0]}}">
+        <input type="text" name="tag_name" value="{{tag[1]}}">
+        <textarea class="form-control" id="tag_description" name="tag_description" rows="3">{{tag[2]}}</textarea>
+        <button class="btn btn-primary btn-sm" type="submit">Сохранить</button>
+    </form>
 </div>
 </div>
 {% endblock %}

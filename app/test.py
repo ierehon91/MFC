@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 from base.base import Base
 
@@ -137,13 +137,18 @@ def add_tag_services():
     if request.method == 'POST':
         db_data.add_tag_service_in_db(request.form.to_dict())
         db_data.commit_bd()
+        return redirect('/reports/settings/program-services/tags-services/add')
     return render_template('reports_settings_tags_services_add.html')
 
 
-@app.route('/reports/settings/program-services/tags-services/<tag_service_id>')
+@app.route('/reports/settings/program-services/tags-services/<tag_service_id>', methods=['GET', 'POST'])
 def tag_service_page(tag_service_id):
-    tag = db_data.get_tag_service(tag_service_id)
-    return render_template('reports_settings_tags_services_page.html', tag=tag)
+    tag = db_data.get_tag_service(tag_service_id)[0]
+    if request.method == 'POST':
+        db_data.change_tag_in_bd(request.form.to_dict())
+        db_data.commit_bd()
+        return redirect(f'/reports/settings/program-services/tags-services/{tag_service_id}')
+    return render_template('reports_settings_tags_services_page.html', tag=tag, tag_service_id=tag_service_id)
 
 
 @app.route('/reports/specialists')

@@ -4,7 +4,7 @@ import re
 from pprint import pprint
 
 from app.date_formats.date_formats import get_str_date_1
-import app.config as config
+import app.mfc_config as config
 
 
 class UpdateMKGU:

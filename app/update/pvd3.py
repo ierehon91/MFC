@@ -1,7 +1,7 @@
 from requests import Session
 import re
 from app.date_formats.date_formats import get_str_date_1, transform_date_to_int
-import app.config as config
+import app.mfc_config as config
 
 
 class UpdatePvd3:

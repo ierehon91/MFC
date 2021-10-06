@@ -1,6 +1,6 @@
 import requests
 import json
-import app.config as config
+import app.mfc_config as config
 from pprint import pprint
 from app.date_formats.date_formats import str_to_int_time
 

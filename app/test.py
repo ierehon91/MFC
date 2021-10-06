@@ -27,7 +27,6 @@ def report_specialists():
     return render_template('report_specialists.html')
 
 
-
 @app.route('/reports/report-services', methods=['GET', 'POST'])
 def report_services():
     """Отчёты по услугам"""

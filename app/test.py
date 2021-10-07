@@ -95,7 +95,17 @@ def group_services_page(group_services_id):
 def program_services():
     """Программные услуги"""
     program_services = db_data.get_program_services_table()
-    return render_template('reports_settings_program_services.html', program_services=program_services)
+    rel_services_tags = db_data.get_rel_services_tags()
+    ser_tags_dict = []
+    for service in program_services:
+        tags = []
+        for tag in rel_services_tags:
+            if service[2] == tag[0]:
+                tags.append(tag[1])
+        ser_tags_dict.append({service[2]: tags})
+    ser_tags_dict = [list(x.items()) for x in ser_tags_dict]
+    return render_template('reports_settings_program_services.html', program_services=program_services,
+                           ser_tags_dict=ser_tags_dict)
 
 
 @app.route('/reports/settings/program-services/add', methods=['GET', 'POST'])

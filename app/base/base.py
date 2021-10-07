@@ -43,6 +43,13 @@ class Base:
         self.cursor.execute(sql_script)
         print(f"Тег к услуге прикреплён добавлен")
 
+    def get_rel_services_tags(self):
+        sql_script = f"""SELECT program_service_id, tag_name FROM program_services
+        LEFT JOIN program_services_tags ON program_services.program_service_id = program_services_tags.fk_program_service
+        LEFT JOIN tags_services ON program_services_tags.fk_tag = tags_services.tag_id;"""
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
     def add_tag_service_in_db(self, tag: dict):
         sql_script = f"""INSERT INTO tags_services (tag_name) VALUES ('{tag['tag_name']}');"""
         self.cursor.execute(sql_script)

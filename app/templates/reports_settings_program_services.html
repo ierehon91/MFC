@@ -17,10 +17,25 @@
     </div>
     <h1>Программные услуги</h1>
     {% for program_service in program_services %}
-        <p>
-            {{program_service[0]}}<br>
-            <a href="/reports/settings/program-services/{{program_service[2]}}">Перейти</a>
+        <p style="font-size: 20px;">
+            {{program_service[0]}}
         </p>
+            Теги:<br>
+            {% for row in ser_tags_dict %}
+                {% if row[0][0] == program_service[2] %}
+                    {% for tag in row[0][1] %}
+                    {%if tag != None%}
+                        <span style="background-color:ivory;">{{tag}}</span><br>
+                    {%else%}
+                        <span style="background-color:rgb(209, 82, 107);">ОТСУТСВУЮТ</span><br>
+                    {%endif%}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <br>
+
+            <a href="/reports/settings/program-services/{{program_service[2]}}">Перейти</a>
+        
         <hr>
     {% endfor %}
 </div>

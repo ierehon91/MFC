@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-
+from app.date_formats.date_formats import get_first_last_this_month_dates
 from base.base import Base
 
 
@@ -35,7 +35,8 @@ def report_services():
         report_services = db_data.get_report_services(dates['first_date'], dates['last_date'])
         return render_template('report_services.html', report_services=report_services, dates=dates)
     else:
-        dates = {'first_date': '2021-06-01', 'last_date': '2021-09-30'}
+
+        dates = get_first_last_this_month_dates()
         report_services = db_data.get_report_services(dates['first_date'], dates['last_date'])
         return render_template('report_services.html', report_services=report_services, dates=dates)
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+import calendar
 
 
 def get_str_date_1(year: int, month: int, day: int) -> str:
@@ -45,3 +46,16 @@ def str_to_int_time(time_str):
     else:
         h, m, s = time_str.split(':')
         return (int(h) * 3600 + int(m) * 60 + int(s)) * 1000
+
+
+def get_first_last_this_month_dates():
+    today_date = datetime.now().strftime('%Y-%m-%d')
+    year = (today_date.split('-')[0])
+    month = (today_date.split('-')[1])
+    last_day = calendar._monthlen(int(year), int(month))
+    dates = {'first_date': f'{year}-{month}-01', 'last_date': f'{year}-{month}-{last_day}'}
+    return dates
+
+
+if __name__ == '__main__':
+    print(get_first_last_this_month_dates())

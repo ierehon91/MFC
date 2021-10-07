@@ -8,6 +8,10 @@ class Base:
                                      password=config.base_password, host=config.base_host)
         self.cursor = self.conn.cursor()
 
+    def consumer_select_script(self, sql_script):
+        self.cursor.execute(sql_script)
+        return self.cursor.fetchall()
+
     def insert_service_in_db(self, service):
         sql_script = f"""INSERT INTO services (service_name, fk_group_service) VALUES (
         '{service['service_name']}',

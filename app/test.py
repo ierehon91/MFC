@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from app.date_formats.date_formats import get_first_last_this_month_dates
+from get_not_active_tags import get_not_active_tags
 from base.base import Base
 
 
@@ -122,8 +123,10 @@ def add_program_service():
 def program_service_page(program_service_id):
     """Страница программной услуги"""
     service = db_data.get_program_service_info(program_service_id)
+    print(service)
     tags_service = db_data.get_tags_from_one_program_service(program_service_id)
-    select_tags = db_data.get_tags_services()
+    select_tags = get_not_active_tags(service[0][0])
+
     if request.method == 'POST':
         db_data.insert_tag_program_service_rel(request.form.to_dict())
         db_data.commit_bd()

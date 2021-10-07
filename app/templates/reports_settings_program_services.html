@@ -25,9 +25,9 @@
                 {% if row[0][0] == program_service[2] %}
                     {% for tag in row[0][1] %}
                     {%if tag != None%}
-                        <span style="background-color:ivory;">{{tag}}</span><br>
+                        <span style="background-color:rgb(205, 255, 176); padding-left: 8px; padding-right: 8px;">{{tag}}</span><br>
                     {%else%}
-                        <span style="background-color:rgb(209, 82, 107);">ОТСУТСВУЮТ</span><br>
+                        <span style="background-color:rgb(255, 173, 189); padding-left: 8px; padding-right: 8px;"">ОТСУТСВУЮТ</span><br>
                     {%endif%}
                     {% endfor %}
                 {% endif %}

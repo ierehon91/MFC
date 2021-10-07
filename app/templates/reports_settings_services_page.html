@@ -7,6 +7,15 @@
 {{ super() }}
 
 <div class="container-xxl">
+    <div>
+        <a href="/reports">Отчёты</a>
+        >
+        <a href="/reports/settings">Панель администратора</a>
+        >
+        <a href="/reports/settings/services">Список услуг</a>
+        >
+        <a href="/reports/settings/services/{{service_info[0][0]}}">{{service_info[0][2]}}</a>
+    </div>
     <h1>{{service_info}}</h1>
       
 </div>

@@ -7,6 +7,11 @@
 {% block content %}
 {{ super() }}
 <div class="container-xxl">
+    <div>
+        <a href="/reports">Отчёты</a>
+        >
+        <a href="/reports/report-services">Отчёты по услугам</a>
+    </div>
     <h1>Отчёт по услугам</h1>
     <form action="/reports/report-services" method="POST">
         <span>Дата: </span>

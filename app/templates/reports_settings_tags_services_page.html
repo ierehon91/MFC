@@ -8,6 +8,15 @@
 {% block content %}
 
 <div class="container-xxl">
+    <div>
+        <a href="/reports">Отчёты</a>
+        >
+        <a href="/reports/settings">Панель администратора</a>
+        >
+        <a href="/reports/settings/program-services/tags-services">Теги услуг</a>
+        >
+        <a href="/reports/settings/program-services/tags-services/{{tag_service_id}}">{{tag[1]}}</a>
+    </div>
     <form action="/reports/settings/program-services/tags-services/{{tag_service_id}}" method="POST">
         <input type="hidden" name="tag_id" value="{{tag[0]}}">
         <input type="text" name="tag_name" value="{{tag[1]}}">

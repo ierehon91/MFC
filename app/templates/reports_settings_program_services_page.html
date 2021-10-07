@@ -9,7 +9,15 @@
 
 <div class="container-xxl">
     <h1>{{service}}</h1>
-
+    <div>
+        <a href="/reports">Отчёты</a>
+        >
+        <a href="/reports/settings">Панель администратора</a>
+        >
+        <a href="/reports/settings/program-services">Список программных услуг</a>
+        >
+        <a href="/reports/settings/program-services/{{service[0][0]}}">{{service[0][1]}}</a>
+    </div>
     <h3>Теги:</h3>
     {% for tag in tags_service %}
         {{tag[1]}}<br>

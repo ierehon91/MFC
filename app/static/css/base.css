@@ -57,3 +57,7 @@ body {
     color: #2C2A29;
     padding-top: 0px;
 }
+
+.link-tree a {
+    text-decoration: none;
+}

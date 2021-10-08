@@ -1,14 +1,45 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link type="text/css" href="{{url_for('static', filename='css/index.css')}}" rel="stylesheet">
+{% endblock %}
+
+
 {% block hedaer %}
 {{ super() }}
-    <h3>Содержимое блока контент</h3>
 {% endblock %}
 {% block content %}
 {{ super() }}
 <div class="container-xxl">
-    <h1>Главная</h1>
+    <h1 class="header-text">Главная МФЦ Ресурс</h1>
+    <div class="row">
+        <div class="col">
+            <img class='ico' src="{{url_for('static', filename='img/base/baza-znanie-ico.png')}}" alt="baza-znanie-ico">
+            <h2>База знаний МФЦ</h2>
+            <p class="description-project">В проекте “База знаний МФЦ” содержится информация о деятельности МФЦ, нормативно-правовых актов, новостей, справочников, а так-же ссылки на необходимые для работы ресурсы.</p>
+            <a class="link-to-project" href="#">Перейти ></a>
+        </div>
+        <div class="col">
+            <img class='ico' src="{{url_for('static', filename='img/base/jurnali-ico.png')}}" alt="jurnali-ico">
+            <h2>Журналы</h2>
+            <p class="description-project">В проекте “Журналы” содержатся формы для заполнения данных специалистами филиала МФЦ.</p>
+            <a class="link-to-project" href="#">Перейти ></a>
+        </div>
+        <div class="col">
+            <img class='ico' src="{{url_for('static', filename='img/base/eo-ico.png')}}" alt="eo-ico">
+            <h2>Электронная очередь</h2>
+            <p class="description-project">В проекте “Электронная очередь” реализовано взаимодействие и системой “Фронтофис”, что позволяет просматривать и администрировать талоны ЭО.</p>
+            <a class="link-to-project" href="#">Перейти ></a>
+        </div>
+        <div class="col">
+            <img class='ico' src="{{url_for('static', filename='img/base/reports-ico.png')}}" alt="reports-ico">
+            <h2>Отчёты</h2>
+            <p class="description-project">В проекте “Отчёты” содержистя иформация о проведенноый работе филиала по различным критериям.</p>
+            <a class="link-to-project" href="/reports">Перейти ></a>
+        </div>
+    </div>
 </div>
+
 
 {% endblock -%}
 {% block footer%}

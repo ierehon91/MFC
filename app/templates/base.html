@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link type="text/css" href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{url_for('static', filename='css/base.css')}}" rel="stylesheet">
+    {% block head %}
+
+    {% endblock %}
 </head>
 <body>
     {% block header %}
-    <header class="p-3 bg-dark text-white">
+    <header class="p-3 base-header">
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-            </a>
-            
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">База знаний МФЦ</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">Электронная очередь</a></li>
-              <li><a href="/reports" class="nav-link px-2 text-white">Отчёты</a></li>
+              <li><a href="/index" class="nav-link text-white text-header">МФЦ Ресурс</a></li>
+              <li><a href="#" class="nav-link text-white text-header">База знаний МФЦ</a></li>
+              <li><a href="#" class="nav-link text-white text-header">Журналы</a></li>
+              <li><a href="#" class="nav-link text-white text-header">Электронная очередь</a></li>
+              <li><a href="/reports" class="nav-link text-white text-header">Отчёты</a></li>
             </ul>
           </div>
         </div>
@@ -26,13 +27,19 @@
     {% endblock %}
     {% block content %}
     <div class="container-xxl">
-      
+      <div class="mfc-resurs">
+        <img class="logo-mfc" src="{{url_for('static', filename='img/base/logo-resurs.png')}}" alt="logo">
+        <div class="mfc-resurs-lables">
+          <p class="mfc-resurs-lable-h">МФЦ Ресурс</p>
+          <p class="mfc-resurs-lable-filial">Филиал АУ "МФЦ" в г. Семилуки</p>
+      </div>
+      </div>
     </div>
     {% endblock %}
     {% block footer %}
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Главная</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">МФЦ Ресурс</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">База знаний МФЦ</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Электронная очередь</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Отчёты</a></li>

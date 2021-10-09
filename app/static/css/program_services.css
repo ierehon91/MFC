@@ -1,0 +1,51 @@
+.add-program-service {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.add-program-service span {
+    background-color: #C39367;
+    padding: 15px 20px;
+    border-radius: 20px;
+}
+
+.add-program-service span a {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'PT Sans Bold';
+    font-size: 16px;
+}
+
+
+.name-service {
+    font-size: 16px;
+}
+
+.tags {
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+
+.tag {
+    background-color: #E04E39;
+    
+}
+
+.no-tag {
+    background-color: #ff0000;
+}
+
+.link-to-change {
+    margin-top: 15px;
+}
+
+.link-to-change a {
+    text-decoration: none;
+}
+
+textarea {
+    width: 800px;
+}

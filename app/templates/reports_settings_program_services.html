@@ -2,7 +2,12 @@
 
 {% block hedaer %}
 {{ super() }}
+    
+{% endblock %}
 
+{% block head %}
+    <title>Программные услуги</title>
+    <link type="text/css" href="{{url_for('static', filename='css/program_services.css')}}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -18,26 +23,37 @@
 
 <div class="container-xxl">
     <h1>Программные услуги</h1>
+
+    <div class="add-program-service">
+        <span>
+            <a href="/reports/settings/program-services/add">Добавить программную услугу</a>
+        </span>
+    </div>
+
+    <hr>
     {% for program_service in program_services %}
-        <p style="font-size: 20px;">
+    
+    <div>
+        <p class="name-service">
             {{program_service[0]}}
         </p>
-            Теги:<br>
             {% for row in ser_tags_dict %}
                 {% if row[0][0] == program_service[2] %}
                     {% for tag in row[0][1] %}
                     {%if tag != None%}
-                        <span style="background-color:rgb(205, 255, 176); padding-left: 8px; padding-right: 8px;">{{tag}}</span><br>
+                        <span class="tags tag">{{tag}}</span>
                     {%else%}
-                        <span style="background-color:rgb(255, 173, 189); padding-left: 8px; padding-right: 8px;"">ОТСУТСВУЮТ</span><br>
+                        <span class="tags no-tag">отсутсвуют</span><br>
                     {%endif%}
                     {% endfor %}
                 {% endif %}
             {% endfor %}
-            <br>
-
-            <a href="/reports/settings/program-services/{{program_service[2]}}">Перейти</a>
-        
+            <p class = "link-to-change">
+            <a href="/reports/settings/program-services/{{program_service[2]}}">
+                Редактировать ✎
+            </a>
+            </p>
+        </div>
         <hr>
     {% endfor %}
 </div>

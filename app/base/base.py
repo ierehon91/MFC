@@ -21,12 +21,21 @@ class Base:
         print(f"Услуга {service['service_name']} добавлена!")
 
     def insert_program_service_in_db(self, program_service):
-        sql_script = f"""INSERT INTO program_services (program_service_name, fk_tag_service) VALUES (
-        '{program_service['name-program-service']}',
-        {program_service['tag-select']}
-        )"""
-        self.cursor.execute(sql_script)
-        print(f"Программная услуга {program_service['name-program-service']} добавлена!")
+        sql_script_insert_program_service = f"""INSERT INTO program_services (program_service_name) VALUES (
+        '{program_service['name-service']}');"""
+        self.cursor.execute(sql_script_insert_program_service)
+        self.conn.commit()
+        print(f"Программная услуга {program_service['name-service']} добавлена!")
+        for key, value in program_service.items():
+            if value == 'on':
+                key = int(key)
+                sql_script_add_tags_from_program_services = f"""INSERT INTO program_services_tags VALUES (
+                    (SELECT program_service_id FROM program_services WHERE 
+                        program_service_name = '{program_service['name-service']}'),
+                    {key}
+                );"""
+                self.cursor.execute(sql_script_add_tags_from_program_services)
+        self.conn.commit()
 
     def insert_reception_table_in_db(self, reception_data):
         sql_script = f"""INSERT INTO reception_table (date_reception, fk_specialist, fk_service, count_reception)

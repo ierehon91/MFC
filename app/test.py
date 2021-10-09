@@ -113,8 +113,9 @@ def program_services():
 def add_program_service():
     """Добавление программной услуги"""
     if request.method == 'POST':
+        print(request.form.to_dict())
         db_data.insert_program_service_in_db(request.form.to_dict())
-        db_data.commit_bd()
+        return redirect('/reports/settings/program-services/add')
     tags = db_data.get_tags_services()
     return render_template('reports_settings_program_services_add.html', tags=tags)
 

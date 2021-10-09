@@ -4,19 +4,35 @@
 {{ super() }}
 
 {% endblock %}
+{% block head %}
+    <title>Добавить программную услугу</title>
+    <link type="text/css" href="{{url_for('static', filename='css/program_services.css')}}" rel="stylesheet">
+{% endblock %}
 {% block content %}
+<div class="container-xxl link-tree">
+    <a href="/reports">Отчёты</a>
+    &rarr;
+    <a href="/reports/settings">Панель администратора</a>
+    &rarr;
+    <a href="/reports/settings/program-services">Список программных услуг</a>
+    &rarr;
+    <a href="/reports/settings/program-services/add">Добавить программную услугу</a>
+</div>
 {{ super() }}
 <link type="text/css" href="{{url_for('static', filename='css/add_service.css')}}" rel="stylesheet">
 <div class="container-xxl">
     <h1>Добавить программную услугу</h1>
-    <form action="/reports/services/add_program_service", method="POST">
-        <input class="form-control name-service" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" type="text", name="name-program-service", placeholder="Название программной услуги">
-        <p>Выберете группу услуги:</p>
-        <select class="form-select tag-select" multiple aria-label="multiple select example" name="tag-select">
-            {% for tag in tags %}
-                <option value="{{tag[0]}}">{{tag[1]}}</option>
-            {% endfor %}
-        </select>
+    <form action="/reports/settings/program-services/add", method="POST">
+        <textarea class = "name-service" name="name-service" id="name-service" rows="7" placeholder="Название программной услуги"></textarea>
+
+        <h3>Выбор тегов услуги:</h3>
+        {% for tag in tags %}
+        <div>
+            <input type="checkbox" name="{{tag[0]}}">
+            <label for="{{tag[0]}}">{{tag[1]}}</label>
+        </div>
+        {% endfor %}
+
         <button class="btn btn-primary" type="submit">Сохранить</button>
     </form>
 </div>

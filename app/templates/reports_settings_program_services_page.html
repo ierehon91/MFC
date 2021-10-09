@@ -5,6 +5,11 @@
 
 {% endblock %}
 
+{% block head %}
+    <title>{{service[0][1]}}</title>
+    <link type="text/css" href="{{url_for('static', filename='css/program_services.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
     <div class="container-xxl link-tree">
             <a href="/reports">Отчёты</a>
@@ -19,23 +24,33 @@
 {{super()}}
 
 <div class="container-xxl">
-    
-    <h1>{{service[0][1]}}</h1>
-    <h3>Теги:</h3>
-    {% for tag in tags_service %}
-        {{tag[1]}}<br>
-    {% endfor %}
-    <hr>
-    Добавить тег:
-    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST">
-        <input type="hidden" name="service_id" value="{{service[0][0]}}">
-        <input class="form-control" list="datalistOptions" name="add_tag_name" placeholder="Выберите тег">
-                        <datalist id="datalistOptions">
-                            {% for select_tag in select_tags %}
-                                <option value="{{select_tag}}">
-                            {% endfor %}
-                        </datalist>
-        <button class="btn btn-primary" type="submit">Добавить</button>
+    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST"></form>
+        <div class="change-name-service">
+            <h3>Название услуги в программе:</h3>
+            <p class="warning-message">Внимание! Название услуги должно быть абсолютно идентично тому, как данная услуга называется в программе.</p>
+            <textarea rows="7">{{service[0][1]}}</textarea>
+        </div>
+
+        <div class="select-tags">
+            <h3>Выбор тегов услуги:</h3>
+            {% for tag in tags %}
+            {% if tag['is_active'] == True %}
+            <div>
+                <input type="checkbox" name="{{tag['tag_id']}}" checked>
+                <label for="{{tag[0]}}">{{tag['tag_name']}}</label>
+            </div>
+            {% else %}
+            <div>
+                <input type="checkbox" name="{{tag['tag_id']}}">
+                <label for="{{tag[0]}}">{{tag['tag_name']}}</label>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <button class="btn btn-danger" type="submit">Удалить услугу</button>
+
     </form>
 </div>
 {% endblock %}

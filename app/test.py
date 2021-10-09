@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from app.date_formats.date_formats import get_first_last_this_month_dates
-from get_not_active_tags import get_not_active_tags
-from base.base import Base
+from base.get_is_active_program_service_tags import get_is_active_program_service_tags
+from base.data_base_class import Base
 
 
 app = Flask(__name__)
@@ -113,7 +113,6 @@ def program_services():
 def add_program_service():
     """Добавление программной услуги"""
     if request.method == 'POST':
-        print(request.form.to_dict())
         db_data.insert_program_service_in_db(request.form.to_dict())
         return redirect('/reports/settings/program-services/add')
     tags = db_data.get_tags_services()
@@ -124,16 +123,13 @@ def add_program_service():
 def program_service_page(program_service_id):
     """Страница программной услуги"""
     service = db_data.get_program_service_info(program_service_id)
-    print(service)
-    tags_service = db_data.get_tags_from_one_program_service(program_service_id)
-    select_tags = get_not_active_tags(service[0][0])
+    tags = get_is_active_program_service_tags(service[0][0])
 
     if request.method == 'POST':
         db_data.insert_tag_program_service_rel(request.form.to_dict())
         db_data.commit_bd()
         return redirect(f'/reports/settings/program-services/{service[0][0]}')
-    return render_template('reports_settings_program_services_page.html', service=service, tags_service=tags_service,
-                           select_tags=select_tags)
+    return render_template('reports_settings_program_services_page.html', service=service, tags=tags)
 
 
 @app.route('/reports/settings/program-services/rel', methods=["GET", "POST"])

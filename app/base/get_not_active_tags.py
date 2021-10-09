@@ -1,4 +1,4 @@
-from base.base import Base
+from app.base.data_base_class import Base
 
 
 def get_not_active_tags(service_id):
@@ -31,6 +31,3 @@ def get_not_active_tags(service_id):
             not_active_tags.append(tag)
     not_active_tags = tuple(not_active_tags)
     return not_active_tags
-
-
-print(get_not_active_tags(21))

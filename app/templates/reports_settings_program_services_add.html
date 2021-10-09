@@ -23,15 +23,18 @@
 <div class="container-xxl">
     <h1>Добавить программную услугу</h1>
     <form action="/reports/settings/program-services/add", method="POST">
-        <textarea class = "name-service" name="name-service" id="name-service" rows="7" placeholder="Название программной услуги"></textarea>
-
-        <h3>Выбор тегов услуги:</h3>
-        {% for tag in tags %}
-        <div>
-            <input type="checkbox" name="{{tag[0]}}">
-            <label for="{{tag[0]}}">{{tag[1]}}</label>
+        <div class="add-service-name">
+            <textarea class = "name-service" name="name-service" id="name-service" rows="7" placeholder="Название программной услуги"></textarea>
         </div>
-        {% endfor %}
+        <div class="select-tags">
+            <h3>Выбор тегов услуги:</h3>
+            {% for tag in tags %}
+            <div>
+                <input type="checkbox" name="{{tag[0]}}">
+                <label for="{{tag[0]}}">{{tag[1]}}</label>
+            </div>
+            {% endfor %}
+        </div>
 
         <button class="btn btn-primary" type="submit">Сохранить</button>
     </form>

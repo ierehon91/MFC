@@ -2,7 +2,7 @@ import os
 import openpyxl
 import datetime
 
-from base.base import Base
+from base.data_base_class import Base
 
 
 def parse_data(files):

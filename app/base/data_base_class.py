@@ -9,6 +9,7 @@ class Base:
         self.cursor = self.conn.cursor()
 
     def consumer_select_script(self, sql_script):
+        """Скрипт для выполнения select, в качестве атрибута передается SQL запрос"""
         self.cursor.execute(sql_script)
         return self.cursor.fetchall()
 
@@ -37,6 +38,8 @@ class Base:
                 self.cursor.execute(sql_script_add_tags_from_program_services)
         self.conn.commit()
 
+
+
     def insert_reception_table_in_db(self, reception_data):
         sql_script = f"""INSERT INTO reception_table (date_reception, fk_specialist, fk_service, count_reception)
             VALUES (
@@ -48,13 +51,19 @@ class Base:
         self.cursor.execute(sql_script)
         print("Запсиь о приёме добавлена!")
 
-    def insert_tag_program_service_rel(self, insert_data):
-        sql_script = f"""INSERT INTO program_services_tags VALUES (
-        {insert_data['service_id']},
-        (SELECT tag_id FROM tags_services WHERE tag_name = '{insert_data['add_tag_name']}')
-        );"""
+    def update_program_service_name(self, program_service_id, program_service_name):
+        sql_script = f"""UPDATE program_services
+            SET program_service_name = '{program_service_name}'
+            WHERE program_service_id = {program_service_id};"""
         self.cursor.execute(sql_script)
-        print(f"Тег к услуге прикреплён добавлен")
+
+    def update_relation_program_services_tags(self, update_data: dict):
+        sql_script = f"""DELETE FROM program_services_tags WHERE fk_program_service = {update_data['service_id']}"""
+        self.cursor.execute(sql_script)
+        for key, value in update_data.items():
+            if value == 'on' and key != 'program_service_name':
+                sql_script = f"""INSERT INTO program_services_tags VALUES ({update_data['service_id']}, {key});"""
+                self.cursor.execute(sql_script)
 
     def get_rel_services_tags(self):
         sql_script = f"""SELECT program_service_id, tag_name FROM program_services

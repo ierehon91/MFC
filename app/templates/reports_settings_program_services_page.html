@@ -24,11 +24,11 @@
 {{super()}}
 
 <div class="container-xxl">
-    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST"></form>
+    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST">
         <div class="change-name-service">
             <h3>Название услуги в программе:</h3>
             <p class="warning-message">Внимание! Название услуги должно быть абсолютно идентично тому, как данная услуга называется в программе.</p>
-            <textarea rows="7">{{service[0][1]}}</textarea>
+            <textarea rows="7" name="program_service_name">{{service[0][1]}}</textarea>
         </div>
 
         <div class="select-tags">
@@ -47,10 +47,8 @@
             {% endif %}
             {% endfor %}
         </div>
-
+        <input type="hidden" name="service_id" value="{{service[0][0]}}">
         <button class="btn btn-primary" type="submit">Сохранить</button>
-        <button class="btn btn-danger" type="submit">Удалить услугу</button>
-
     </form>
 </div>
 {% endblock %}

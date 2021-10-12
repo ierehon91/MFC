@@ -126,7 +126,10 @@ def program_service_page(program_service_id):
     tags = get_is_active_program_service_tags(service[0][0])
 
     if request.method == 'POST':
-        db_data.insert_tag_program_service_rel(request.form.to_dict())
+        update_data = request.form.to_dict()
+        print(update_data)
+        db_data.update_program_service_name(update_data['service_id'], update_data['program_service_name'])
+        db_data.update_relation_program_services_tags(update_data)
         db_data.commit_bd()
         return redirect(f'/reports/settings/program-services/{service[0][0]}')
     return render_template('reports_settings_program_services_page.html', service=service, tags=tags)

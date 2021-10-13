@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from app.date_formats.date_formats import get_first_last_this_month_dates
 from base.get_is_active_program_service_tags import get_is_active_program_service_tags
+from base.get_specialists_reception_data import seporat_tables
 from base.data_base_class import Base
 
 
@@ -22,10 +23,16 @@ def reports():
     return render_template('reports.html')
 
 
-@app.route('/reports/report-specialists')
+@app.route('/reports/report-specialists', methods=['GET', 'POST'])
 def report_specialists():
     """Отчёты по специалистам"""
-    return render_template('report_specialists.html')
+    if request.method == 'POST':
+        dates = request.form.to_dict()
+        report_specialists = seporat_tables(dates['first_date'], dates['last_date'])
+        return render_template('report_specialists.html', dates=dates, report_specialists=report_specialists)
+    dates = get_first_last_this_month_dates()
+    report_specialists = seporat_tables(dates['first_date'], dates['last_date'])
+    return render_template('report_specialists.html', dates=dates, report_specialists=report_specialists)
 
 
 @app.route('/reports/report-services', methods=['GET', 'POST'])
@@ -36,7 +43,6 @@ def report_services():
         report_services = db_data.get_report_services(dates['first_date'], dates['last_date'])
         return render_template('report_services.html', report_services=report_services, dates=dates)
     else:
-
         dates = get_first_last_this_month_dates()
         report_services = db_data.get_report_services(dates['first_date'], dates['last_date'])
         return render_template('report_services.html', report_services=report_services, dates=dates)
@@ -63,6 +69,7 @@ def add_service():
     if request.method == 'POST':
         db_data.insert_service_in_db(request.form.to_dict())
         db_data.commit_bd()
+        return redirect('/reports/settings/services')
     groups = db_data.get_group_services()
     return render_template('reports_settings_services_add.html', groups=groups)
 
@@ -141,6 +148,7 @@ def change_rel_program_services_services():
     if request.method == 'POST':
         db_data.set_services_program_services(request.form.to_dict())
         db_data.commit_bd()
+        return redirect('/reports/settings/program-services/rel')
     program_services = db_data.get_program_services_table()
     services_data = db_data.get_services_table()
     return render_template('reports_settings_program_services_rel.html', program_services=program_services,

@@ -12,11 +12,35 @@
         >
         <a href="/reports/report-specialists">Отчёты по специалистам</a>
     </div>
+    <form action="/reports/report-specialists" method="POST">
+        <span>Дата: </span>
+        <input type="date" name="first_date" value="{{dates['first_date']}}">
+        <span> по </span>
+        <input type="date" name="last_date" value="{{dates['last_date']}}">
+        <button class="btn btn-primary btn-sm" type="submit">Показать отчёт</button>
+    </form>
     <h1>Отчёт по специалистам</h1>
-    <h2>Специалисты в окнах</h2>
-    <table>
-        
-    </table>
+    <h2>Приём по Окнам:</h2>
+    <hr>
+        {% for specialist in report_specialists['windows'] %}
+            {{ specialist['status_name'] }}<br>
+            {{ specialist['specialist_name'] }}<br>
+            ПВД: {{ specialist['pvd'] }}<br>
+            Капелла: {{ specialist['kapella'] }}<br>
+            Типы услуг: {{ specialist['types'] }}<br>
+            Дополнительные услуги: {{ specialist['dop'] }}<hr>
+        {% endfor %}
+    <h2>Приём по Администраторам филиала:</h2>
+        {{report_specialists['admins']}}
+    <h2>Приём по Специалистам ЦОУ:</h2>
+        {{report_specialists['specialist_cou']}}
+    <h2>Приём по УЗ ТОСП:</h2>
+        {{report_specialists['tosp_account']}}
+    <h2>Приём Дополнительно сотрудниками филиала:</h2>
+        {{report_specialists['other']}}
+    <h2>Приём сотрудников, которые в данный момент в дикрете или больше не работают в филиале:</h2>
+        {{report_specialists['no_work']}}
+    
 </div>
 
 {% endblock %}

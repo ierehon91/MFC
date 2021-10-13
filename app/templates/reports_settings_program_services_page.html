@@ -24,7 +24,7 @@
 {{super()}}
 
 <div class="container-xxl">
-    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST">
+    <form action="/reports/settings/program-services/{{service[0][0]}}" method="POST" name="change">
         <div class="change-name-service">
             <h3>Название услуги в программе:</h3>
             <p class="warning-message">Внимание! Название услуги должно быть абсолютно идентично тому, как данная услуга называется в программе.</p>
@@ -50,6 +50,7 @@
         <input type="hidden" name="service_id" value="{{service[0][0]}}">
         <button class="btn btn-primary" type="submit">Сохранить</button>
     </form>
+
 </div>
 {% endblock %}
 {% block footer %}

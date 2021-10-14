@@ -81,6 +81,3 @@ def seporat_tables(first_date, last_date):
             other.append(append_row(row))
     return {'windows': windows, 'admins': admins, 'tosp_account': tosp_account, 'specialists_tosp': specialists_tosp,
             'specialist_cou': specialist_cou, 'no_work': no_work, 'other': other}
-
-
-pprint(seporat_tables('2021-10-12', '2021-10-12'))

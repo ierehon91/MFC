@@ -57,5 +57,9 @@ def get_first_last_this_month_dates():
     return dates
 
 
+def get_today_date():
+    return datetime.now().strftime('%Y-%m-%d')
+
+
 if __name__ == '__main__':
     print(get_first_last_this_month_dates())

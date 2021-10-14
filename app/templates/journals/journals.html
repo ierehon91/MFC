@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+    
+{% endblock %}
+
+{% block head %}
+    <title>Журналы</title>
+    <link type="text/css" href="{{url_for('static', filename='css/program_services.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl link-tree">
+    <a href="/journals">Журналы</a>
+</div>
+
+{{super()}}
+
+<div class="container-xxl">
+    <h1>Журналы</h1>
+    <div class="row">
+        <div class="col">
+            <a href="/journals/esia">Журнал ЕСИА</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

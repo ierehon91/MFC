@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block hedaer %}
+{{ super() }}
+    
+{% endblock %}
+
+{% block head %}
+    <title>Журнал ЕСИА</title>
+    <link type="text/css" href="{{url_for('static', filename='css/program_services.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl link-tree">
+    <a href="/journals">Журналы</a>
+    &rarr;
+    <a href="/journals/esia">Журнал ЕСИА</a>
+</div>
+
+{{super()}}
+
+<div class="container-xxl">
+    <h1>Журнал ЕСИА</h1>
+    <div>
+        <h2>Добавить запись ЕСИА</h2>
+        <form action="/journals/esia" method="POST">
+            <span>Дата приёма:</span>
+            <input class="input date" type="date" name="date_reception" value="{{today_date}}">
+            <span>Действие:</span>
+            <input class="input process" type="select" name="process" placeholder="Выберите действие">
+            <span>Специалист:</span>
+            <input class="input specialist" type="select" name="specialist" placeholder="Выберите специалиста">
+            <span>Код квитанции:</span>
+            <input class="input code" type="select" name="code" placeholder="Код из квитанции"><br>
+            <textarea class="input description" name="description" id="" cols="90" rows="3" placeholder="Комментарий"></textarea><br>
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

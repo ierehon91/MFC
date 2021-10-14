@@ -9,13 +9,15 @@
     border-radius: 20px;
 }
 
-.add-program-service span a {
+a .add-program-service {
+    text-decoration: none;
+}
+.add-program-service span {
     text-decoration: none;
     color: #fff;
     font-family: 'PT Sans Bold';
     font-size: 16px;
 }
-
 
 .name-service {
     font-size: 16px;

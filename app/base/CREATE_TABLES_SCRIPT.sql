@@ -70,3 +70,21 @@ CREATE TABLE IF NOT EXISTS reception_table (
     FOREIGN KEY (fk_specialist) REFERENCES specialists (specialist_id),
     FOREIGN KEY (fk_service) REFERENCES program_services (program_service_id)
 );
+
+CREATE TABLE IF NOT EXISTS esia_process (
+    esia_process_id SERIAL,
+    esia_process_name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (esia_process_id)
+);
+
+CREATE TABLE IF NOT EXISTS esia_journal (
+    row_id BIGSERIAL,
+    date_reception DATE NOT NULL,
+    fk_specialist INTEGER NOT NULL,
+    fk_esia_process INTEGER NOT NULL,
+    process_code TEXT,
+    sescription TEXT,
+    PRIMARY KEY (row_id),
+    FOREIGN KEY (fk_specialist) REFERENCES specialists (specialist_id),
+    FOREIGN KEY (fk_esia_process) REFERENCES esia_process (esia_process_id)
+);

@@ -16,6 +16,45 @@ def index():
     return render_template('index.html')
 
 
+# Журналы
+
+@app.route('/journals')
+def journals():
+    """Страница со списком журналов"""
+    return render_template('journals.html')
+
+
+# Журнал ЕСИА
+@app.route('/journals/esia')
+def journals_esia():
+    """Журнал приёма ЕСИА"""
+    return render_template('journals_esia.html')
+
+
+@app.route('/journals/esia/<row_id>')
+def journal_esia_page(row_id):
+    """Страница записи из журнала ЕСИА"""
+    return render_template('journals_esia_page.html', id=row_id)
+
+
+@app.route('/journals/esia/process')
+def journal_esia_process():
+    """Список действий для журнала ЕСИА"""
+    return render_template('journals_esia_process.html')
+
+
+@app.route('/journals/esia/process/add')
+def journal_esia_process_add():
+    """Страница добавления нового действия для журнала ЕСИА"""
+    return render_template('journals_esia_process_add.html')
+
+
+@app.route('/journals/esia/process/<process_id>')
+def journal_esia_process_page(process_id):
+    """Страница действия ЕСИА"""
+    return render_template('journals_esia_process_page.html', id=process_id)
+
+
 # Отчёты
 @app.route('/reports')
 def reports():
